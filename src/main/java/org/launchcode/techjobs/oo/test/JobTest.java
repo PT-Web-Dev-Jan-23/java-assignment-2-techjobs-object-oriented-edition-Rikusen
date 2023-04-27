@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 public class JobTest {
 
     @Test
-    public void testSettingJobID(){
+    public void testSettingJobId(){
         Job job1 = new Job();
         Job job2 = new Job();
         assertNotEquals(job1, job2);
@@ -35,6 +35,16 @@ public class JobTest {
         assertEquals("Desert", testJob.getLocation().getValue());
         assertEquals("Quality Control", testJob.getPositionType().getValue());
         assertEquals("Persistence", testJob.getCoreCompetency().getValue());
+    }
+
+    @Test
+    public void testJobsForEquality(){
+        Job job1 = new Job("Product", new Employer("ACE"), new Location("Wonder Land"),
+                new PositionType("Quality Control"), new CoreCompetency("Persistence"));
+        Job job2 = new Job("Product", new Employer("ACE"), new Location("Wonder Land"),
+                new PositionType("Quality Control"), new CoreCompetency("Persistence"));
+
+        assertFalse(job1.equals(job2));
     }
 
 }
