@@ -46,5 +46,43 @@ public class JobTest {
 
         assertFalse(job1.equals(job2));
     }
-
+    @Test
+    public void testToStringStartsAndEndsWithNewLine(){
+        Job test1 = new Job("Game Tester", new Employer("RIOT"), new Location("St. Louis"), new PositionType("Quality Control"), new CoreCompetency("Logic Testing"));
+        String testString = test1.toString();
+        assertEquals(testString.charAt(0), '\n');
+        assertEquals(testString.charAt(testString.length()-1), '\n');
+    }
+    @Test
+    public void testToStringContainsCorrectLabelsAndData(){
+        Job test1 = new Job("Game Tester", new Employer("RIOT"), new Location("St. Louis"), new PositionType("Quality Control"), new CoreCompetency("Logic Testing"));
+        String testJob = test1.toString();
+        String expectedString = "\nID: " + test1.getId() +
+                "\nName: Game Tester" +
+                "\nEmployer: RIOT" +
+                "\nLocation: St. Louis" +
+                "\nPosition Type: Quality Control" +
+                "\nCore Competency: Logic Testing\n";
+        assertEquals(testJob, expectedString);
+    }
+    @Test
+    public void testToStringHandlesEmptyField(){
+        Job test1 = new Job("Game Tester", new Employer(""), new Location("St. Louis"), new PositionType(""), new CoreCompetency("Logic Testing"));
+        String testJob = test1.toString();
+        String expectedString = "\nID: " + test1.getId() +
+                "\nName: Game Tester" +
+                "\nEmployer: Data not available" +
+                "\nLocation: St. Louis" +
+                "\nPosition Type: Data not available" +
+                "\nCore Competency: Logic Testing\n";
+        assertEquals(testJob, expectedString);
+    }
+    @Test
+    public void testToStringHandlesNonExistingJob(){
+       Job test1 = new Job("",new Employer(""),new Location(""),new PositionType(""),new CoreCompetency(""));
+       String testString = test1.toString();
+       String expectedOutput = "\nID: " + test1.getId() +
+               "\nOOPS! This job does not seem to exist.";
+       assertEquals(expectedOutput, testString);
+    }
 }
